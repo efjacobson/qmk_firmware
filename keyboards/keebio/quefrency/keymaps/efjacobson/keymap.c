@@ -40,10 +40,18 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
     else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_VOLD);
-        } else {
-            tap_code(KC_VOLU);
-        }
-    }
+      if (IS_LAYER_ON(_BASE)) {
+          if (clockwise) {
+              tap_code(KC_VOLU);
+          } else {
+              tap_code(KC_VOLD);
+          }
+      } else if (IS_LAYER_ON(_FN1)) {
+          if (clockwise) {
+              tap_code(KC_MEDIA_NEXT_TRACK);
+          } else {
+              tap_code(KC_MEDIA_PREV_TRACK);
+          }
+      }
+      }
 }
