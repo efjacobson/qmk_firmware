@@ -65,9 +65,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     switch (keycode) {
         case CLUT:
-            register_code(KC_LCTL);
+            register_code(KC_LALT);
             tap_code(KC_W);
-            unregister_code(KC_LCTL);
+            unregister_code(KC_LALT);
             break;
         case SLEFT:
             register_code(KC_LCTL);
