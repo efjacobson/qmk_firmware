@@ -160,10 +160,11 @@ void right_encoder(bool clockwise) {
     }
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         left_encoder(clockwise);
     } else if (index == 1) {
         right_encoder(clockwise);
     }
+    return true;
 }
