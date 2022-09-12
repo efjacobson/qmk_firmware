@@ -29,6 +29,7 @@ quantum/version.h
 *.hex
 *.qmk
 *.uf2
+!keebio_quefrency_rev2_efjacobson.hex
 
 # Old-style QMK Makefiles
 /keyboards/**/Makefile
