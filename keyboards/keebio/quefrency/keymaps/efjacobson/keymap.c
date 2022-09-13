@@ -66,12 +66,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     switch (keycode) {
         case MDCHK:
-            tap_code(KC_MINS);
-            tap_code(KC_SPC);
-            tap_code(KC_LBRC);
-            tap_code(KC_SPC);
-            tap_code(KC_RBRC);
-            tap_code(KC_SPC);
+            SEND_STRING("- [ ] ");
             break;
         case CLUT:
             register_code(KC_LALT);
