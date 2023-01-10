@@ -116,12 +116,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case GAMING:
             if (is_gaming) {
                 is_gaming = false;
-                rgblight_disable_noeeprom();
                 layer_off(GAMING_0);
+    // rgblight_setrgb(0x00, 0xFF, 0xFF);
+    rgblight_enable(); // Enable RGB by default
+    rgblight_sethsv(HSV_CYAN);  // Set default HSV - red hue, full saturation, full brightness
+
             } else {
                 is_gaming = true;
-                rgblight_enable_noeeprom();
                 layer_on(GAMING_0);
+    // rgblight_setrgb(0x00, 0xFF, 0xFF);
+    rgblight_enable(); // Enable RGB by default
+    rgblight_sethsv(HSV_CYAN);  // Set default HSV - red hue, full saturation, full brightness
+
             }
             break;
     }
