@@ -24,3 +24,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define USE_I2C
 
 #define ENCODER_DIRECTION_FLIP
+
+// #define RGBLIGHT_ANIMATIONS
+#undef RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_FLASHING
+#define RGBLIGHT_EFFECT_ALTERNATING
+#undef BACKLIGHT_ENABLE
+#define BACKLIGHT_ENABLE
+
+// #define RGBLIGHT_EFFECT_TWINKLE
+#define RGBLIGHT_SLEEP
+#define RGBLIGHT_SPLIT

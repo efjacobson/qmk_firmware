@@ -12,11 +12,9 @@ WTMZ-TMZ006298)
 esac
 
 [ -z "$qmk_root" ] && echo 'do where now?' && exit
+cd "$qmk_root" || exit
+keymap="$qmk_root/keyboards/keebio/quefrency/keymaps/efjacobson/keymap.c"
 
-cd "$qmk_root/keyboards/keebio/quefrency/keymaps/efjacobson"
-sed -i.bu 's/_______/KC_TRNS/g' keymap.c
-cd "$qmk_root"
+sed -i.bu 's/_______/KC_TRNS/g' "$keymap"
 make keebio/quefrency/rev2:efjacobson:flash
-cd "$qmk_root/keyboards/keebio/quefrency/keymaps/efjacobson"
-sed -i.bu 's/KC_TRNS/_______/g' keymap.c
-rm keymap.c.bu
+mv "$keymap.bu" "$keymap"

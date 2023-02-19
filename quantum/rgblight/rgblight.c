@@ -23,6 +23,7 @@
 #include "color.h"
 #include "debug.h"
 #include "led_tables.h"
+#include "backlight.h"
 #include <lib/lib8tion/lib8tion.h>
 #ifdef EEPROM_ENABLE
 #    include "eeprom.h"
@@ -115,6 +116,10 @@ bool              is_rgblight_initialized = false;
 #ifdef RGBLIGHT_SLEEP
 static bool is_suspended;
 static bool pre_suspend_enabled;
+#endif
+
+#ifdef RGBLIGHT_EFFECT_FLASHING
+static bool flash_state;
 #endif
 
 #ifdef RGBLIGHT_USE_TIMER
@@ -1113,6 +1118,12 @@ void rgblight_task(void) {
             effect_func   = (effect_func_t)rgblight_effect_alternating;
         }
 #    endif
+#    ifdef RGBLIGHT_EFFECT_FLASHING
+        else if (rgblight_status.base_mode == RGBLIGHT_MODE_FLASHING) {
+            interval_time = 333;
+            effect_func   = (effect_func_t)rgblight_effect_flashing;
+        }
+#    endif
 #    ifdef RGBLIGHT_EFFECT_TWINKLE
         else if (rgblight_status.base_mode == RGBLIGHT_MODE_TWINKLE) {
             interval_time = get_interval_time(&RGBLED_TWINKLE_INTERVALS[delta % 3], 5, 30);
@@ -1431,6 +1442,21 @@ void rgblight_effect_alternating(animation_status_t *anim) {
     }
     rgblight_set();
     anim->pos = (anim->pos + 1) % 2;
+}
+#endif
+
+#ifdef RGBLIGHT_EFFECT_FLASHING
+void rgblight_effect_flashing(animation_status_t *anim) {
+    if (flash_state) {
+      flash_state = false;
+      rgblight_sethsv_range(0, 0, 0, 0, RGBLED_NUM);
+      backlight_set(1);
+    } else {
+      flash_state = true;
+      rgblight_sethsv_range(255, 255, 255, 0, RGBLED_NUM);
+      backlight_set(0);
+    }
+    rgblight_set();
 }
 #endif
 
