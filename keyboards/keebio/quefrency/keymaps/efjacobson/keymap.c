@@ -9,13 +9,9 @@ extern keymap_config_t keymap_config;
 #define MAC_0 0
 #define MAC_1 1
 #define MAC_2 2
-#define GAMING_0 3
 
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
-bool is_gaming = false;
-bool is_caps = false;
-uint8_t mode = 0;
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -24,25 +20,24 @@ enum custom_keycodes {
   SLEFT,
   SRIGHT,
   CLUT,
+  SO_SECRET,
   MDCHK,
   INCMAIN,
   DECMAIN,
-  GAMING,
-  _CAPS,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MAC_0] = LAYOUT_65_with_macro(
     _______,    KC_ESC,     KC_GRV,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINS,    KC_EQL,     KC_DEL,     KC_BSPC,    KC_MEDIA_PLAY_PAUSE, \
     KC_F1,      KC_F2,      KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    KC_RBRC,    KC_BSLS,    KC_END,     \
-    KC_F3,      KC_F4,      _CAPS,      KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_QUOT,    KC_ENT,     KC_PGUP,    \
+    KC_F3,      KC_F4,      KC_CAPS,    KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_QUOT,    KC_ENT,     KC_PGUP,    \
     KC_F5,      KC_F6,      KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       KC_N,       KC_M,       KC_COMM,    KC_DOT,     KC_SLSH,    KC_RSFT,    KC_UP,      KC_PGDN,    \
     RGB_TOG,    RGB_MOD,    KC_LCTL,    KC_LALT,    MO(MAC_1),  KC_LGUI,    MO(MAC_1),              _______,    KC_SPC,     MO(MAC_1),  KC_RCTL,    KC_RGUI,    KC_LEFT,    KC_DOWN,    KC_RGHT
   ),
 
   [MAC_1] = LAYOUT_65_with_macro(
     _______,    _______,    _______,    KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     KC_F12,     KC_DEL,     KC_DEL,     _______, \
-    _______,    _______,    CLUT,       _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_UP,      _______,    _______,    MDCHK,      _______,    _______,    _______,    \
+    _______,    _______,    CLUT,       _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_UP,      _______,    _______,    MDCHK,      _______,    _______,    SO_SECRET,  \
     _______,    _______,    MO(MAC_2),  _______,    _______,    SLEFT,      SRIGHT,     _______,    _______,    KC_LEFT,    KC_DOWN,    KC_RGHT,    _______,    _______,    _______,    _______,    \
     _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    INCMAIN,    DECMAIN,    _______,    _______,    _______,    _______,    \
     BL_TOGG,    BL_STEP,    _______,    _______,    _______,    _______,    _______,                _______,    MO(MAC_2),  _______,    _______,    _______,    _______,    _______,    _______
@@ -55,14 +50,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    \
     _______,    _______,    _______,    _______,    _______,    _______,    _______,                _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______
   ),
-
-  [GAMING_0] = LAYOUT_65_with_macro(
-    _______,    KC_ESC,     KC_GRV,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINS,    KC_EQL,     KC_DEL,     KC_BSPC,    KC_MEDIA_PLAY_PAUSE, \
-    KC_F1,      KC_F2,      KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    KC_RBRC,    KC_BSLS,    KC_END,     \
-    KC_F3,      KC_F4,      _CAPS,      KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_QUOT,    KC_ENT,     KC_PGUP,    \
-    KC_F5,      KC_F6,      KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       KC_N,       KC_M,       KC_COMM,    KC_DOT,     KC_SLSH,    KC_RSFT,    KC_UP,      KC_PGDN,    \
-    GAMING,     RGB_MOD,    KC_LCTL,    KC_LALT,    MO(MAC_1),  KC_LGUI,    KC_SPC,                 _______,    KC_SPC,     MO(MAC_1),  KC_RCTL,    KC_RGUI,    KC_LEFT,    KC_DOWN,    KC_RGHT
-  )
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -72,6 +59,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MDCHK:
             SEND_STRING("- [ ] ");
+            break;
+        case SO_SECRET:
+            send_string_with_delay("SUPER_SRSLY_SECRET_YALL", 244);
+            rgblight_toggle_noeeprom();
+            _delay_ms(1000);
+            rgblight_toggle_noeeprom();
             break;
         case CLUT:
             register_code(KC_LALT);
@@ -116,27 +109,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_LSFT);
             unregister_code(KC_LALT);
             break;
-        case _CAPS:
-            tap_code(KC_CAPS);
-            if (is_caps) {
-              is_caps = false;
-              rgblight_mode_noeeprom(mode);
-            } else {
-              is_caps = true;
-              mode = rgblight_get_mode();
-              rgblight_mode_noeeprom(RGBLIGHT_MODE_FLASHING);
-            }
-        case GAMING:
-            if (is_gaming) {
-                is_gaming = false;
-                layer_off(GAMING_0);
-                rgblight_sethsv_noeeprom(HSV_CYAN);
-            } else {
-                is_gaming = true;
-                layer_on(GAMING_0);
-                rgblight_sethsv_noeeprom(HSV_PURPLE);
-            }
-            break;
     }
     return true;
 }
@@ -144,7 +116,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void matrix_scan_user(void) {
     if (is_alt_tab_active) {
         if (timer_elapsed(alt_tab_timer) > 750) {
-            unregister_code(KC_LGUI);
+             unregister_code(KC_LGUI);
             is_alt_tab_active = false;
         }
     }
@@ -153,15 +125,15 @@ void matrix_scan_user(void) {
 void left_encoder(bool clockwise) {
     switch (biton32(layer_state)) {
         case 1:
-            register_code(KC_LCTRL);
+            register_code(KC_LCTL);
             if (!clockwise) {
-                register_code(KC_LSHIFT);
+                register_code(KC_LSFT);
             }
             tap_code(KC_TAB);
             if (!clockwise) {
-                unregister_code(KC_LSHIFT);
+                unregister_code(KC_LSFT);
             }
-            unregister_code(KC_LCTRL);
+            unregister_code(KC_LCTL);
             break;
         case 0:
         default:
@@ -171,11 +143,11 @@ void left_encoder(bool clockwise) {
             }
             alt_tab_timer = timer_read();
             if (!clockwise) {
-                register_code(KC_LSHIFT);
+                register_code(KC_LSFT);
             }
             tap_code(KC_TAB);
             if (!clockwise) {
-                unregister_code(KC_LSHIFT);
+                unregister_code(KC_LSFT);
             }
             break;
     }

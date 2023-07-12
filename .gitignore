@@ -1,3 +1,6 @@
+secret
+*.hex
+
 # Junk files
 *.bak
 *.swp
