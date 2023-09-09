@@ -19,6 +19,8 @@ enum custom_keycodes {
   SWORDR,
   SLEFT,
   SRIGHT,
+  LFTSCRN,
+  RGTSCRN,
   CLUT,
   SO_SECRET,
   MDCHK,
@@ -49,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_PGUP,    _______,    _______,    _______,    _______,    _______,    _______,    \
     _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    SWORDL,     KC_PGDN,    SWORDR,     _______,    _______,    _______,    _______,    \
     _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    \
-    _______,    _______,    _______,    _______,    _______,    _______,    _______,                _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______
+    _______,    _______,    _______,    _______,    _______,    _______,    _______,                _______,    _______,    _______,    _______,    _______,    LFTSCRN,    _______,    RGTSCRN
   ),
 };
 
@@ -98,6 +100,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code(KC_RGHT);
             unregister_code(KC_LSFT);
             unregister_code(KC_LALT);
+            break;
+        case LFTSCRN:
+            register_code(KC_LCTL);
+            register_code(KC_LALT);
+            register_code(KC_LSFT);
+            tap_code(KC_LBRC);
+            unregister_code(KC_LSFT);
+            unregister_code(KC_LALT);
+            unregister_code(KC_LCTL);
+            break;
+        case RGTSCRN:
+            register_code(KC_LCTL);
+            register_code(KC_LALT);
+            register_code(KC_LSFT);
+            tap_code(KC_RBRC);
+            unregister_code(KC_LSFT);
+            unregister_code(KC_LALT);
+            unregister_code(KC_LCTL);
             break;
         case INCMAIN: // increase main pane count (amethyst)
             register_code(KC_LALT);
