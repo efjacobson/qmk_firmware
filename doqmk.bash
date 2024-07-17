@@ -61,9 +61,9 @@ else
 fi
 
 if [ "${flash}" == 'true' ]; then
-    make keebio/quefrency/rev2:efjacobson:flash
+    qmk flash -kb keebio/quefrency/rev2 -km efjacobson
 else
-    make keebio/quefrency/rev2:efjacobson
+    qmk compile -kb keebio/quefrency/rev2 -km efjacobson
 fi
 
 mv "${keymap}.bu" "${keymap}"
